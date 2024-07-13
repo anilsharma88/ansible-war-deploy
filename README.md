@@ -407,8 +407,8 @@ Use the role in a playbook site.yml:
     name: non-critical-package
     state: present
   ignore_errors: yes
-failed_when
 ```
+failed_when
 The failed_when directive allows you to specify conditions under which a task is considered failed. This is useful when the default success/failure conditions are not sufficient.
 
 ```
@@ -498,3 +498,54 @@ Using msg in the debug module within a rescue block can help provide custom erro
 ```
 Summary
 Effective error handling in Ansible involves understanding and using the various mechanisms available for managing and recovering from task failures. By using directives like ignore_errors, failed_when, and structured error handling with block, rescue, and always, you can create more resilient and maintainable automation scripts.
+
+# forks = 10 cunnerent apply to 10 host 
+```
+# ansible.cfg
+[defaults]
+forks = 10
+ansible-playbook -i inventory playbook.yml --forks 10
+```
+```
+- name: Example playbook with environment variables
+  hosts: all
+  environment:
+    MY_VAR: "Hello World"
+  tasks:
+    - name: Print the environment variable using the command module
+      command: echo $MY_VAR
+
+    - name: Print the environment variable using the shell module
+      shell: echo "The value of MY_VAR is $MY_VAR"
+
+    - name: Use the environment variable in a custom script
+      script: /path/to/your_script.sh
+```
+- name: Set dynamic environment variables
+  hosts: all
+  tasks:
+    - name: Gather facts
+      setup:
+
+    - name: Set dynamic environment variable
+      command: echo $MY_DYNAMIC_VAR
+      environment:
+        MY_DYNAMIC_VAR: "{{ ansible_hostname }}"
+
+
+```
+Setting Environment Variables Dynamically
+
+```
+- name: Set environment variable using set_fact
+  hosts: all
+  tasks:
+    - name: Set a fact
+      ansible.builtin.set_fact:
+        my_var: "Hello from set_fact"
+
+    - name: Use the fact as an environment variable
+      command: echo $MY_VAR
+      environment:
+        MY_VAR: "{{ my_var }}"
+```
