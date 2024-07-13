@@ -335,8 +335,9 @@ Let's create a role called webserver that installs and configures Nginx.
 Generate the role structure:
 ```
 ansible-galaxy init webserver
+```
 Define tasks in tasks/main.yml:
-
+```
 # roles/webserver/tasks/main.yml
 - name: Install Nginx
   apt:
@@ -354,16 +355,18 @@ Define tasks in tasks/main.yml:
     name: nginx
     state: started
     enabled: true
+```
 Define handlers in handlers/main.yml:
-
+```
 # roles/webserver/handlers/main.yml
 - name: Restart Nginx
   service:
     name: nginx
     state: restarted
+```
 Define default variables in defaults/main.yml:
 
-
+```
 # roles/webserver/defaults/main.yml
 nginx_port: 80
 Create a template file templates/nginx.conf.j2:
