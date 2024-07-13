@@ -521,6 +521,7 @@ ansible-playbook -i inventory playbook.yml --forks 10
     - name: Use the environment variable in a custom script
       script: /path/to/your_script.sh
 ```
+```
 - name: Set dynamic environment variables
   hosts: all
   tasks:
@@ -534,7 +535,7 @@ ansible-playbook -i inventory playbook.yml --forks 10
 
 
 ```
-Setting Environment Variables Dynamically
+ Using the ansible.builtin.set_fact Module
 
 ```
 - name: Set environment variable using set_fact
@@ -548,4 +549,23 @@ Setting Environment Variables Dynamically
       command: echo $MY_VAR
       environment:
         MY_VAR: "{{ my_var }}"
+```
+```
+---
+- name: Set dynamic environment variables using set_fact
+  hosts: all
+  tasks:
+    - name: Gather facts
+      setup:
+
+    - name: Set a dynamic fact
+      set_fact:
+        my_var: "{{ ansible_hostname }}"
+
+    - name: Use the fact as an environment variable
+      command: echo $MY_VAR
+      environment:
+        MY_VAR: "{{ my_var }}"
+---
+ansible-playbook -i hosts site.yml --extra-vars "my_extra_var=HelloWorld"
 ```
