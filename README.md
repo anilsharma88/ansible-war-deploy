@@ -419,9 +419,9 @@ The failed_when directive allows you to specify conditions under which a task is
   - **block, rescue, and always**
     - Ansible’s block, rescue, and always keywords provide structured error handling similar to try/catch/finally in traditional programming languages.
 
-**block:** Contains the tasks to be executed.
-**rescue:** Contains the tasks to be executed if any task in the block fails.
-**always:** Contains the tasks to be executed regardless of success or failure.
+-  **block:** Contains the tasks to be executed.
+- **rescue:** Contains the tasks to be executed if any task in the block fails.
+- **always:** Contains the tasks to be executed regardless of success or failure.
 ```
 - name: Structured error handling example
   hosts: all
